@@ -87,3 +87,16 @@ header {
     transform: scale(1.5);
   }
   
+  .window-size {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 1px solid black;
+    color: black;
+    padding: 5px;
+  }
+  .window-size.hidden {
+    opacity: 0;
+    transition: 1s;
+  }
