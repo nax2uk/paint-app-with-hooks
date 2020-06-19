@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Name from './Name';
 import ColourPicker from './ColourPicker';
-import WindowSize from './WindowSize';
+import useWindowSize from './WindowSize';
 import randomColor from 'randomcolor';
 import Canvas from './Canvas'
 import RefreshButton from './RefreshButton'
@@ -21,6 +21,15 @@ export default function Paint() {
     }, []);
 
     const headerRef = useRef({ offsetHeight: 0 });
+
+    const [visible, setVisible] = useState(false);
+    let timeoutID = useRef();
+    const [windowWidth, windowHeight] = useWindowSize(() => {
+        setVisible(true);
+        clearTimeout(timeoutID.current);
+        timeoutID.current = setTimeout(() => setVisible(false), 500);
+
+    });
 
     useEffect(getColours, []);
     return (
@@ -42,7 +51,9 @@ export default function Paint() {
                     height={window.innerHeight - headerRef.current.offsetHeight}
                 />
             )}
-            <WindowSize />
+            <div className={`window-size ${visible ? '' : 'hidden'}`} >
+                {windowWidth} x {windowHeight}
+            </div >
         </div>
     )
 }
