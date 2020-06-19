@@ -92,11 +92,6 @@ export default function Paint() {
                     onMouseOut={stopDrawing}
                     onMouseMove={handleMouseMove}
                 />)}
-            {/*<Canvas
-                    colour={activeColour}
-                    height={window.innerHeight - headerRef.current.offsetHeight}
-                    width={window.innerWidth}
-                />*/}
 
             <div className={`window-size ${visible ? '' : 'hidden'}`} >
                 {windowWidth} x {windowHeight}
