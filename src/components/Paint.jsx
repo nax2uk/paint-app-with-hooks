@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import Name from './Name';
-import ColourPicker from './ColourPicker';
 import useWindowSize from './WindowSize';
+import Menu from './Menu';
 import randomColor from 'randomcolor';
-import Canvas from './Canvas';
-import GetMoreColoursButton from './GetMoreColoursButton';
-import ClearScreenButton from './ClearScreenButton';
-import EraseButton from './EraseButton';
 
 export default function Paint() {
+
+    /*** HEADER ***/
+    const headerRef = useRef({ offsetHeight: 0 });
+    /*** COLOURS  ***/
     const [activeColour, setActiveColour] = useState(randomColor());
     const [colours, setColours] = useState([]);
 
@@ -22,8 +21,49 @@ export default function Paint() {
             })
     }, []);
 
-    const headerRef = useRef({ offsetHeight: 0 });
+    useEffect(getColours, []);
 
+    /*** Canvas ***/
+    const [drawing, setDrawing] = useState(false);
+    const canvasRef = useRef();
+
+    function handleMouseMove(e) {
+        // actual coordinates
+        const coords = [
+            e.clientX - canvasRef.current.offsetLeft,
+            e.clientY - canvasRef.current.offsetTop
+        ]
+        if (drawing) {
+            canvasRef.current.getContext('2d').lineTo(...coords)
+            canvasRef.current.getContext('2d').stroke()
+        }
+        // if (this.handleMouseMove) {
+        //     this.handleMouseMove(...coords)
+        // }
+    }
+    function startDrawing(e) {
+        canvasRef.current.getContext('2d').lineJoin = 'round';
+        canvasRef.current.getContext('2d').lineCap = 'round';
+        canvasRef.current.getContext('2d').lineWidth = 10;
+        canvasRef.current.getContext('2d').strokeStyle = activeColour;
+        canvasRef.current.getContext('2d').beginPath();
+        // actual coordinates
+        canvasRef.current.getContext('2d').moveTo(
+            e.clientX - canvasRef.current.offsetLeft,
+            e.clientY - canvasRef.current.offsetTop
+        )
+        setDrawing(true)
+    }
+    function stopDrawing() {
+        canvasRef.current.getContext('2d').closePath();
+        setDrawing(false);
+    }
+
+    const clearScreen = () => {
+        canvasRef.current.getContext('2d').clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+    }
+
+    /*** WINDOW SIZE ***/
     const [visible, setVisible] = useState(false);
     let timeoutID = useRef();
     const [windowWidth, windowHeight] = useWindowSize(() => {
@@ -33,37 +73,34 @@ export default function Paint() {
 
     });
 
-    useEffect(getColours, []);
-
     return (
         <div className="app">
-            <header ref={headerRef} style={{ borderTop: `10px solid ${activeColour}` }}>
-                <Name />
-                <div style={{ marginTop: 10 }}>
-                    <div className="paint-options">
-                        <EraseButton />
-                        <GetMoreColoursButton cb={getColours} />
-                        <ClearScreenButton />
-                    </div>
-                    <div className="colour-options">
-                        <ColourPicker
-                            colours={colours}
-                            activeColour={activeColour}
-                            setActiveColour={setActiveColour}
-                        />
-                    </div>
-                </div>
-            </header>
+            <Menu
+                headerRef={headerRef}
+                colours={colours}
+                activeColour={activeColour}
+                setActiveColour={setActiveColour}
+                getColours={getColours}
+                clearScreen={clearScreen} />
             {activeColour && (
-                <Canvas
-                    color={activeColour}
+                <canvas
+                    ref={canvasRef}
+                    width={window.innerWidth}
+                    height={window.innerHeight - headerRef.current.offsetHeight}
+                    onMouseDown={startDrawing}
+                    onMouseUp={stopDrawing}
+                    onMouseOut={stopDrawing}
+                    onMouseMove={handleMouseMove}
+                />)}
+            {/*<Canvas
+                    colour={activeColour}
                     height={window.innerHeight - headerRef.current.offsetHeight}
                     width={window.innerWidth}
-                />
-            )}
-            {<div className={`window-size ${visible ? '' : 'hidden'}`} >
+                />*/}
+
+            <div className={`window-size ${visible ? '' : 'hidden'}`} >
                 {windowWidth} x {windowHeight}
-            </div >}
+            </div >
         </div>
     )
 }
