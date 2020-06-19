@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import GetMoreColoursButton from './GetMoreColoursButton';
 import ClearScreenButton from './ClearScreenButton';
 import EraseButton from './EraseButton';
