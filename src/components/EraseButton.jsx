@@ -1,5 +1,14 @@
 import React from 'react'
 
-export default React.memo(({ cb }) => {
-    return <button className="button-options" onClick={cb}><i class="fas fa-eraser"></i></button >
-});
+export default function EraseButton({ setActiveColour, activeColour }) {
+    return <label>
+        <input
+            name="colour"
+            type="radio"
+            value="#ffffffå"
+            checked={activeColour === "#ffffff"}
+            onChange={() => setActiveColour("#ffffff")}
+        />
+        <span><i class="fas fa-eraser"></i></span>
+    </label>
+};
