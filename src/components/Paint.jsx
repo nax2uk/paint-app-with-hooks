@@ -3,11 +3,13 @@ import Name from './Name';
 import ColourPicker from './ColourPicker';
 import useWindowSize from './WindowSize';
 import randomColor from 'randomcolor';
-import Canvas from './Canvas'
-import RefreshButton from './RefreshButton'
+import Canvas from './Canvas';
+import GetMoreColoursButton from './GetMoreColoursButton';
+import ClearScreenButton from './ClearScreenButton';
+import EraseButton from './EraseButton';
 
 export default function Paint() {
-    const [activeColour, setActiveColour] = useState(null);
+    const [activeColour, setActiveColour] = useState(randomColor());
     const [colours, setColours] = useState([]);
 
     const getColours = useCallback(() => {
@@ -32,28 +34,36 @@ export default function Paint() {
     });
 
     useEffect(getColours, []);
+
     return (
         <div className="app">
             <header ref={headerRef} style={{ borderTop: `10px solid ${activeColour}` }}>
                 <Name />
                 <div style={{ marginTop: 10 }}>
-                    <ColourPicker
-                        colours={colours}
-                        activeColour={activeColour}
-                        setActiveColour={setActiveColour}
-                    />
-                    <RefreshButton cb={getColours} />
+                    <div className="paint-options">
+                        <EraseButton />
+                        <GetMoreColoursButton cb={getColours} />
+                        <ClearScreenButton />
+                    </div>
+                    <div className="colour-options">
+                        <ColourPicker
+                            colours={colours}
+                            activeColour={activeColour}
+                            setActiveColour={setActiveColour}
+                        />
+                    </div>
                 </div>
             </header>
             {activeColour && (
                 <Canvas
                     color={activeColour}
                     height={window.innerHeight - headerRef.current.offsetHeight}
+                    width={window.innerWidth}
                 />
             )}
-            <div className={`window-size ${visible ? '' : 'hidden'}`} >
+            {<div className={`window-size ${visible ? '' : 'hidden'}`} >
                 {windowWidth} x {windowHeight}
-            </div >
+            </div >}
         </div>
     )
 }

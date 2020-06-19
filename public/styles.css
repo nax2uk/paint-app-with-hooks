@@ -1,6 +1,6 @@
 html {
     box-sizing: border-box;
-    /* overflow: hidden; */
+    overflow: hidden; 
   }
   *,
   *:before,
@@ -101,9 +101,24 @@ header {
     transition: 1s;
   }
 
-  .button-refresh-colors {
+  .button-options {
     border: 0;
     background: none;
+    border: 0.1rem solid #000;
+    border-radius: 0.25rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 5px;
+    margin: 5px;
+    text-align: center;
+    font-size:1.6rem;
     cursor: pointer;
-    font-size: 2rem;
+
+  }
+
+  .paint-options{
+  }
+  
+  .colour-options{
+
   }
