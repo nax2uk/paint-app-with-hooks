@@ -10,7 +10,7 @@ export default function WindowSize() {
             setWindowDim([window.innerWidth, window.innerHeight]);
             setVisible(true);
             clearTimeout(timeoutID);
-            timeoutID = setTimeout(() => (setVisible(false), 500));
+            timeoutID = setTimeout(() => setVisible(false), 500);
         }
 
         window.addEventListener('resize', handleResize)
