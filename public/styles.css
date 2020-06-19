@@ -100,3 +100,10 @@ header {
     opacity: 0;
     transition: 1s;
   }
+
+  .button-refresh-colors {
+    border: 0;
+    background: none;
+    cursor: pointer;
+    font-size: 2rem;
+  }
