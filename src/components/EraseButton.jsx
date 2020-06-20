@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default function EraseButton({ setActiveColour, activeColour }) {
-    return <label>
+    return <label title="eraser">
         <input
             name="colour"
             type="radio"
