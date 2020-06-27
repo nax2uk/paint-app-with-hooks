@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
-import PaintContext from '../context/paint/paintContext';
+import ColoursContext from '../context/colours/coloursContext';
 
-export default React.memo(({ cb }) => {
+export default React.memo(() => {
 
-    const paintContext = useContext(PaintContext);
+    const coloursContext = useContext(ColoursContext);
 
-    return <button className="button-options" onClick={paintContext.getColours} title="get more colours"><i class="fas fa-palette"></i></button>
+    return <button className="button-options" onClick={coloursContext.getColours} title="get more colours"><i class="fas fa-palette"></i></button>
 });

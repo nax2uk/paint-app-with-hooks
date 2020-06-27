@@ -1,20 +1,20 @@
 import React, { useContext } from 'react';
-import PaintContext from '../context/paint/paintContext';
+import ColoursContext from '../context/colours/coloursContext';
 
 
 export default function ColourPicker() {
-    const paintContext = useContext(PaintContext);
-    if (!paintContext.colours.length) return null
+    const coloursContext = useContext(ColoursContext);
+    if (!coloursContext.colours.length) return null
     return (
         <fieldset className="colour-picker">
-            {paintContext.colours.map((colour, i) => (
+            {coloursContext.colours.map((colour, i) => (
                 <label key={i}>
                     <input
                         name="colour"
                         type="radio"
                         value={colour}
-                        checked={paintContext.activeColour === colour}
-                        onChange={() => paintContext.setActiveColour(colour)}
+                        checked={coloursContext.activeColour === colour}
+                        onChange={() => coloursContext.setActiveColour(colour)}
                     />
                     <span style={{ background: colour }} />
                 </label>

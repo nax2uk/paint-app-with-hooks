@@ -1,15 +1,15 @@
 import React, { useContext } from 'react'
-import PaintContext from '../context/paint/paintContext';
+import ColoursContext from '../context/colours/coloursContext';
 
 export default function EraseButton() {
-    const paintContext = useContext(PaintContext);
+    const coloursContext = useContext(ColoursContext);
     return <label title="eraser">
         <input
             name="colour"
             type="radio"
             value="#ffffffå"
-            checked={paintContext.activeColour === "#ffffff"}
-            onChange={() => paintContext.setActiveColour("#ffffff")}
+            checked={coloursContext.activeColour === "#ffffff"}
+            onChange={() => coloursContext.setActiveColour("#ffffff")}
         />
         <span><i class="fas fa-eraser"></i></span>
     </label>

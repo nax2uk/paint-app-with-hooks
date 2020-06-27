@@ -3,21 +3,21 @@ import GetMoreColoursButton from './GetMoreColoursButton';
 import ClearScreenButton from './ClearScreenButton';
 import EraseButton from './EraseButton';
 import ColourPicker from './ColourPicker';
-import PaintContext from '../context/paint/paintContext';
+import ColoursContext from '../context/colours/coloursContext';
 import Name from './Name';
 
-export default function Menu({ headerRef, clearScreen }) {
+export default function Menu({ headerRef }) {
 
-    const paintContext = useContext(PaintContext);
+    const coloursContext = useContext(ColoursContext);
 
     return (
-        <header ref={headerRef} style={{ borderTop: `10px solid ${paintContext.activeColour}` }}>
+        <header ref={headerRef} style={{ borderTop: `10px solid ${coloursContext.activeColour}` }}>
             <Name />
             <div style={{ marginTop: 10 }}>
                 <div className="paint-options">
                     <EraseButton />
                     <GetMoreColoursButton />
-                    <ClearScreenButton cb={clearScreen} />
+                    <ClearScreenButton />
                 </div>
                 <div className="colour-options">
                     <ColourPicker />

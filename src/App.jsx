@@ -1,12 +1,16 @@
 import React from 'react'
 import Paint from './components/Paint'
-import PaintState from './context/paint/PaintState';
+import ColoursState from './context/colours/ColoursState';
+import CanvasState from './context/canvas/CanvasState';
 
 export default function App() {
 
     return (
-        <PaintState>
-            <Paint />
-        </PaintState>
+        <ColoursState>
+            <CanvasState>
+                <Paint />
+            </CanvasState>
+        </ColoursState>
+
     );
 }

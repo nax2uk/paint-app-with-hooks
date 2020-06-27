@@ -1,6 +1,6 @@
 import {
     GET_COLOURS,
-    SET_ACTIVE_COLOUR
+    SET_ACTIVE_COLOUR,
 }
     from '../types';
 

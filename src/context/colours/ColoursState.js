@@ -1,20 +1,21 @@
 import React, { useReducer, useCallback } from 'react';
-import PaintContext from './paintContext';
-import PaintReducer from './paintReducer';
+import ColoursContext from './coloursContext';
+import ColoursReducer from './coloursReducer';
 import randomColor from 'randomcolor';
 import {
     GET_COLOURS,
-    SET_ACTIVE_COLOUR
+    SET_ACTIVE_COLOUR,
 }
     from '../types';
 
-const PaintState = props => {
+const ColoursState = props => {
     const initialState = {
         /*** COLOURS  ***/
         activeColour: randomColor(),
         colours: []
     }
-    const [state, dispatch] = useReducer(PaintReducer, initialState);
+    const [state, dispatch] = useReducer(ColoursReducer, initialState);
+
 
     const getColours = useCallback(() => {
         const baseColour = randomColor().slice(1);
@@ -30,19 +31,20 @@ const PaintState = props => {
     }, []);
 
     const setActiveColour = (activeColour) => dispatch({ type: SET_ACTIVE_COLOUR, activeColour: activeColour });
+
     return (
-        <PaintContext.Provider
+        <ColoursContext.Provider
             value={{
                 activeColour: state.activeColour,
                 colours: state.colours,
                 getColours,
-                setActiveColour
+                setActiveColour,
             }}
         >
             {props.children}
-        </PaintContext.Provider>
+        </ColoursContext.Provider>
     );
 }
 
-export default PaintState;
+export default ColoursState;
 
