@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 
 export default React.memo(() => {
     const [name, setName] = useState('')
-    console.log("rendered");
     return (
         <label className="header-name">
             <input
