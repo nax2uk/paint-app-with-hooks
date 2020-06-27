@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
-import useWindowSize from './WindowSize';
+import React, { useEffect, useRef, useContext } from 'react';
+
 import Menu from './Menu';
 import ColoursContext from '../context/colours/coloursContext';
 import CanvasContext from '../context/canvas/canvasContext';
+import WindowContext from '../context/window/windowContext';
 
 export default function Paint() {
 
@@ -11,21 +12,14 @@ export default function Paint() {
 
     /*** COLOURS ***/
     const coloursContext = useContext(ColoursContext);
-
     useEffect(coloursContext.getColours, []);
 
-    /*** Canvas ***/
+    /*** CANVAS ***/
     const canvasContext = useContext(CanvasContext);
 
     /*** WINDOW SIZE ***/
-    const [visible, setVisible] = useState(false);
-    let timeoutID = useRef();
-    const [windowWidth, windowHeight] = useWindowSize(() => {
-        setVisible(true);
-        clearTimeout(timeoutID.current);
-        timeoutID.current = setTimeout(() => setVisible(false), 500);
+    const windowContext = useContext(WindowContext);
 
-    });
 
     return (
         <div className="app">
@@ -43,8 +37,8 @@ export default function Paint() {
                     onMouseMove={canvasContext.handleMouseMove}
                 />)}
 
-            <div className={`window-size ${visible ? '' : 'hidden'}`} >
-                {windowWidth} x {windowHeight}
+            <div className={`window-size ${windowContext.visible ? '' : 'hidden'}`} >
+                {windowContext.windowWidth} x {windowContext.windowHeight}
             </div >
         </div>
     )

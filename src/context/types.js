@@ -1,3 +1,4 @@
 export const GET_COLOURS = 'GET_COLOURS';
 export const SET_ACTIVE_COLOUR = 'SET_ACTIVE_COLOUR';
 export const SET_DRAWING = 'SET_DRAWING';
+export const SET_VISIBLE = 'SET_VISIBLE';

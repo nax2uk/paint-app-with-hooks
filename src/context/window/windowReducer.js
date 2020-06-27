@@ -1,14 +1,14 @@
 import {
-    SET_DRAWING
+    SET_VISIBLE
 }
     from '../types';
 
 export default (state, action) => {
     switch (action.type) {
 
-        case SET_DRAWING:
+        case SET_VISIBLE:
             return {
-                drawing: action.drawing
+                visible: action.visible
             }
         default: return state;
     }
