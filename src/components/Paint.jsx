@@ -1,27 +1,16 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useContext } from 'react';
 import useWindowSize from './WindowSize';
 import Menu from './Menu';
-import randomColor from 'randomcolor';
+import PaintContext from '../context/paint/paintContext';
 
 export default function Paint() {
 
     /*** HEADER ***/
     const headerRef = useRef({ offsetHeight: 0 });
-    /*** COLOURS  ***/
-    const [activeColour, setActiveColour] = useState(randomColor());
-    const [colours, setColours] = useState([]);
 
-    const getColours = useCallback(() => {
-        const baseColour = randomColor().slice(1);
-        fetch(`https://www.thecolorapi.com/scheme?hex=${baseColour}&mode=monochrome`)
-            .then(res => res.json())
-            .then(res => {
-                setColours(res.colors.map(colour => colour.hex.value));
-                setActiveColour(res.colors[0].hex.value);
-            })
-    }, []);
+    const paintContext = useContext(PaintContext);
 
-    useEffect(getColours, []);
+    useEffect(paintContext.getColours, []);
 
     /*** Canvas ***/
     const [drawing, setDrawing] = useState(false);
@@ -45,7 +34,7 @@ export default function Paint() {
         canvasRef.current.getContext('2d').lineJoin = 'round';
         canvasRef.current.getContext('2d').lineCap = 'round';
         canvasRef.current.getContext('2d').lineWidth = 10;
-        canvasRef.current.getContext('2d').strokeStyle = activeColour;
+        canvasRef.current.getContext('2d').strokeStyle = paintContext.activeColour;
         canvasRef.current.getContext('2d').beginPath();
         // actual coordinates
         canvasRef.current.getContext('2d').moveTo(
@@ -77,12 +66,8 @@ export default function Paint() {
         <div className="app">
             <Menu
                 headerRef={headerRef}
-                colours={colours}
-                activeColour={activeColour}
-                setActiveColour={setActiveColour}
-                getColours={getColours}
                 clearScreen={clearScreen} />
-            {activeColour && (
+            {paintContext.activeColour && (
                 <canvas
                     ref={canvasRef}
                     width={window.innerWidth}

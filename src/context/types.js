@@ -1,0 +1,2 @@
+export const GET_COLOURS = 'GET_COLOURS';
+export const SET_ACTIVE_COLOUR = 'SET_ACTIVE_COLOUR';
