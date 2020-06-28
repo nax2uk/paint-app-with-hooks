@@ -1,7 +1,7 @@
 Simple Paint App using React Hooks.
 
 27 June 2020
--- Added useContext and useReducer hooks to prevent prop drilling
+-- Added useContext in combination to useReducer to manage state and prevent prop-drilling
 
 ## Link
 
