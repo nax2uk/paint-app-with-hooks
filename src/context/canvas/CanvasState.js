@@ -16,7 +16,6 @@ const CanvasState = props => {
     const coloursContext = useContext(ColoursContext);
     const canvasRef = useRef();
 
-
     function handleMouseMove(e) {
         // actual coordinates
         const coords = [
