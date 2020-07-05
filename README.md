@@ -1,4 +1,4 @@
-#Simple Paint App using React Hooks.
+# Simple Paint App using React Hooks.
 
 - I started programming this app to learn about react hooks from a scrimba.com tutorial.
 - After I completed the tutorial, I refactored the code to add more functionalities.
