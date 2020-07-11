@@ -7,7 +7,8 @@ As a result, the code is now much cleaner.
 
 ## Link
 
-https://simple-paint-app-with-react-hooks.netlify.app/
+ * You can find my simple paint app [here](https://simple-paint-app-with-react-hooks.netlify.app/)
+ * App does not paint on mobile phones.
 
 ## Change Log
 ### 19 June 2020
